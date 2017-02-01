@@ -132,7 +132,9 @@ public class JSON_API_eCOM {
               String ip_Ruble 	= "213.87.141.36"; // 5
               String ip_Australian_dollar  	= "27.111.255.255"; // 6
               String ip_Norwegian_krone 	= "46.249.255.255"; // 7
-              
+              String ip_Tögrög 	= "182.160.63.255"; // 8
+              String ip_Peso 	= "158.170.255.255"; //9 
+              String ip_Guinean_franc 	= "197.149.255.255"; //10 
               String ip_local 	= " ";
 
              ////////////////////////////////////////////////////////////////////////////////
@@ -153,7 +155,7 @@ public class JSON_API_eCOM {
   driver.quit();
   System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
              ////////////////////////////////////////////////////////////////////////////////
-for(int i_ip=1; i_ip<=7 ; i_ip++){
+for(int i_ip=1; i_ip<=10 ; i_ip++){
 switch (i_ip){
 case 1: ip_local=ip_Euro; break;
 case 2: ip_local=ip_Yuan; break;
@@ -162,7 +164,9 @@ case 4: ip_local=ip_Hryvnia; break;
 case 5: ip_local=ip_Ruble; break;
 case 6: ip_local=ip_Australian_dollar; break;
 case 7: ip_local=ip_Norwegian_krone; break;
-
+case 8: ip_local=ip_Tögrög; break;
+case 9: ip_local=ip_Peso; break;
+case 10: ip_local=ip_Guinean_franc; break;
 }
 URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_local);
 
@@ -208,7 +212,7 @@ URL rate_url = new URL("http://query.yahooapis.com/v1/public/yql?q=" + rate_sql 
 
        double local_price = new BigDecimal(original_price * rate).setScale(2, RoundingMode.HALF_UP).doubleValue();
        //System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
-       System.out.println("Price for " + country_name +  " is: " + currency_symbol + local_price);
+       System.out.println(i_ip+". Price for " + country_name +  " is: " + currency_symbol + local_price);
 } //for i_ip
     }
 }
