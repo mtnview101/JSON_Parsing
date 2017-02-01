@@ -130,6 +130,9 @@ public class JSON_API_eCOM {
               String ip_Pound 	= "92.40.254.196"; // 3
               String ip_Hryvnia = "93.183.203.67"; // 4
               String ip_Ruble 	= "213.87.141.36"; // 5
+              String ip_Australian_dollar  	= "27.111.255.255"; // 6
+              String ip_Norwegian_krone 	= "46.249.255.255"; // 7
+              
               String ip_local 	= " ";
 
              ////////////////////////////////////////////////////////////////////////////////
@@ -148,15 +151,18 @@ public class JSON_API_eCOM {
   String product_title = driver.findElement(By.id("productTitle")).getText();    
   double original_price = Double.parseDouble(driver.findElement(By.id("priceblock_ourprice")).getText().replace("$", "")); // 49.99
   driver.quit();
-
+  System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
              ////////////////////////////////////////////////////////////////////////////////
-for(int i_ip=1; i_ip<6 ; i_ip++){
+for(int i_ip=1; i_ip<=7 ; i_ip++){
 switch (i_ip){
 case 1: ip_local=ip_Euro; break;
 case 2: ip_local=ip_Yuan; break;
 case 3: ip_local=ip_Pound; break;
 case 4: ip_local=ip_Hryvnia; break;
 case 5: ip_local=ip_Ruble; break;
+case 6: ip_local=ip_Australian_dollar; break;
+case 7: ip_local=ip_Norwegian_krone; break;
+
 }
 URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_local);
 
@@ -201,8 +207,8 @@ URL rate_url = new URL("http://query.yahooapis.com/v1/public/yql?q=" + rate_sql 
              ////////////////////////////////////////////////////////////////////////////////
 
        double local_price = new BigDecimal(original_price * rate).setScale(2, RoundingMode.HALF_UP).doubleValue();
-       System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
-       System.out.println("for country: " + country_name + "; " + "Local Price: " + currency_symbol + local_price);
+       //System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
+       System.out.println("Price for " + country_name +  " is: " + currency_symbol + local_price);
 } //for i_ip
     }
 }
