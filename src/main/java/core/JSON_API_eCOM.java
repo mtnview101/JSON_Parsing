@@ -122,7 +122,8 @@ public class JSON_API_eCOM {
 		                  throw new IllegalArgumentException("Unknown Browser");
 		           }
 		    }
-       public static void main(String[] args) throws InterruptedException, IOException {
+
+	public static void main(String[] args) throws InterruptedException, IOException {
               String us_currency_symbol = "$";
 
               String ip_Euro 	= "88.191.179.56"; // 1
@@ -142,7 +143,7 @@ public class JSON_API_eCOM {
               Logger logger = Logger.getLogger("");
               logger.setLevel(Level.OFF);
               
-//           String in_browser = System.getProperty("browser");
+           //String in_browser = System.getProperty("browser");
     	   	 String in_browser = "HtmlUnit"; // "HtmlUnit" "Firefox" or "Chrome" or Safari or IE or Edge
              setWebDriver(in_browser);
              String url = "https://www.amazon.com/All-New-Amazon-Echo-Dot-Add-Alexa-To-Any-Room/dp/B01DFKC2SO";
@@ -154,7 +155,8 @@ public class JSON_API_eCOM {
   double original_price = Double.parseDouble(driver.findElement(By.id("priceblock_ourprice")).getText().replace("$", "")); // 49.99
   driver.quit();
   System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
-             ////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
 for(int i_ip=1; i_ip<=10 ; i_ip++){
 switch (i_ip){
 case 1: ip_local=ip_Euro; break;
@@ -181,13 +183,12 @@ URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_local);
 
               while (parser.hasNext()) {
                      Event e = parser.next();
-                     if (e == Event.KEY_NAME) {switch (parser.getString()) {
-
-             case e_cName: parser.next(); country_name = parser.getString();break;   // France
-             case e_cCode:parser.next(); currency_code = parser.getString();break;      // EUR
-             case e_cSymbol:parser.next(); currency_symbol = parser.getString();break;}}} // €
-
-             ////////////////////////////////////////////////////////////////////////////////
+                     if (e == Event.KEY_NAME) {
+             switch (parser.getString()) {
+	             case e_cName: parser.next(); country_name = parser.getString();break;   // France
+	             case e_cCode:parser.next(); currency_code = parser.getString();break;      // EUR
+	             case e_cSymbol:parser.next(); currency_symbol = parser.getString();break;}}} // €
+////////////////////////////////////////////////////////////////////////////////
 
               double rate = 0;
               String rate_id = "USD" + currency_code;          // USDEUR
@@ -213,7 +214,8 @@ URL rate_url = new URL("http://query.yahooapis.com/v1/public/yql?q=" + rate_sql 
        double local_price = new BigDecimal(original_price * rate).setScale(2, RoundingMode.HALF_UP).doubleValue();
        //System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
        System.out.println(i_ip+". Price for " + country_name +  " is: " + currency_symbol + local_price);
+       
 } //for i_ip
-    }
-}
+} // main
+} // class
 
