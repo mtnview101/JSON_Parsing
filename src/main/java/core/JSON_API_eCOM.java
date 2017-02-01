@@ -94,8 +94,8 @@ public class JSON_API_eCOM {
 
 		           case "IE":
 		                 DesiredCapabilities IEDesiredCapabilities = DesiredCapabilities.internetExplorer();
-							 IEDesiredCapabilities.setCapability (InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-							 IEDesiredCapabilities.setCapability (InternetExplorerDriver.INITIAL_BROWSER_URL, "");
+					      IEDesiredCapabilities.setCapability (InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+					      IEDesiredCapabilities.setCapability (InternetExplorerDriver.INITIAL_BROWSER_URL, "");
 		                  IEDesiredCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		                  IEDesiredCapabilities.setJavascriptEnabled(true);
 		                  IEDesiredCapabilities.setCapability("enablePersistentHover", false);
@@ -119,17 +119,18 @@ public class JSON_API_eCOM {
 		                  break;
 
 		           default:
-		                  throw new IllegalArgumentException("Unknown Broweser");
+		                  throw new IllegalArgumentException("Unknown Browser");
 		           }
 		    }
        public static void main(String[] args) throws InterruptedException, IOException {
               String us_currency_symbol = "$";
 
-              String ip_Euro 	= "88.191.179.56";
-              String ip_Yuan 	= "61.135.248.220";
-              String ip_Pound 	= "92.40.254.196";
-              String ip_Hryvnia = "93.183.203.67";
-              String ip_Ruble 	= "213.87.141.36";
+              String ip_Euro 	= "88.191.179.56"; // 1
+              String ip_Yuan 	= "61.135.248.220";// 2
+              String ip_Pound 	= "92.40.254.196"; // 3
+              String ip_Hryvnia = "93.183.203.67"; // 4
+              String ip_Ruble 	= "213.87.141.36"; // 5
+              String ip_local 	= " ";
 
              ////////////////////////////////////////////////////////////////////////////////
 
@@ -137,7 +138,7 @@ public class JSON_API_eCOM {
               logger.setLevel(Level.OFF);
               
 //           String in_browser = System.getProperty("browser");
-    	   	 String in_browser = "Chrome"; // "HtmlUnit" "Firefox" or "Chrome" or Safari or IE or Edge
+    	   	 String in_browser = "HtmlUnit"; // "HtmlUnit" "Firefox" or "Chrome" or Safari or IE or Edge
              setWebDriver(in_browser);
              String url = "https://www.amazon.com/All-New-Amazon-Echo-Dot-Add-Alexa-To-Any-Room/dp/B01DFKC2SO";
               driver.get(url);
@@ -149,11 +150,15 @@ public class JSON_API_eCOM {
   driver.quit();
 
              ////////////////////////////////////////////////////////////////////////////////
-
-URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_Ruble);
-//URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_Hryvnia);
-
-             // URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_Euro);
+for(int i_ip=1; i_ip<6 ; i_ip++){
+switch (i_ip){
+case 1: ip_local=ip_Euro; break;
+case 2: ip_local=ip_Yuan; break;
+case 3: ip_local=ip_Pound; break;
+case 4: ip_local=ip_Hryvnia; break;
+case 5: ip_local=ip_Ruble; break;
+}
+URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_local);
 
               final String e_cName = "geoplugin_countryName";
               final String e_cCode = "geoplugin_currencyCode";
@@ -198,6 +203,7 @@ URL rate_url = new URL("http://query.yahooapis.com/v1/public/yql?q=" + rate_sql 
        double local_price = new BigDecimal(original_price * rate).setScale(2, RoundingMode.HALF_UP).doubleValue();
        System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
        System.out.println("for country: " + country_name + "; " + "Local Price: " + currency_symbol + local_price);
+} //for i_ip
     }
 }
 
