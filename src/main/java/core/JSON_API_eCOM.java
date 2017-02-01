@@ -16,11 +16,11 @@ public class JSON_API_eCOM {
        public static void main(String[] args) throws InterruptedException, IOException {
               String us_currency_symbol = "$";
 
-              String ip_Euro = "88.191.179.56";
-              String ip_Yuan = "61.135.248.220";
-              String ip_Pound = "92.40.254.196";
+              String ip_Euro 	= "88.191.179.56";
+              String ip_Yuan 	= "61.135.248.220";
+              String ip_Pound 	= "92.40.254.196";
               String ip_Hryvnia = "93.183.203.67";
-              String ip_Ruble = "213.87.141.36";
+              String ip_Ruble 	= "213.87.141.36";
 
              ////////////////////////////////////////////////////////////////////////////////
 
@@ -30,23 +30,26 @@ public class JSON_API_eCOM {
              String url = "https://www.amazon.com/All-New-Amazon-Echo-Dot-Add-Alexa-To-Any-Room/dp/B01DFKC2SO";
 
 
-              WebDriver driver;
-              System.setProperty("webdriver.chrome.driver", "./src/main/resources/webdrivers/pc/chromedriver.exe");
-              System.setProperty("webdriver.chrome.silentOutput", "true");
-              ChromeOptions option = new ChromeOptions();
-              option.addArguments("-start-fullscreen");
-              driver = new ChromeDriver(option);
-              driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-              driver.get(url);
+  WebDriver driver;
+  
+  System.setProperty("webdriver.chrome.driver", "./src/main/resources/webdrivers/pc/chromedriver.exe");
+  System.setProperty("webdriver.chrome.silentOutput", "true");
+  ChromeOptions option = new ChromeOptions();
+  option.addArguments("-start-fullscreen");
+  driver = new ChromeDriver(option);
+  
+  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+  driver.get(url);
 
-             // All-New Echo Dot (2nd Generation) - Black
-              String product_title = driver.findElement(By.id("productTitle")).getText();    
-double original_price = Double.parseDouble(driver.findElement(By.id("priceblock_ourprice")).getText().replace("$", "")); // 49.99
-              driver.quit();
+ // All-New Echo Dot (2nd Generation) - Black
+  String product_title = driver.findElement(By.id("productTitle")).getText();    
+  double original_price = Double.parseDouble(driver.findElement(By.id("priceblock_ourprice")).getText().replace("$", "")); // 49.99
+  driver.quit();
 
              ////////////////////////////////////////////////////////////////////////////////
 
-              URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_Ruble);
+URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_Ruble);
+//URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_Hryvnia);
 
              // URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_Euro);
 
@@ -64,7 +67,7 @@ double original_price = Double.parseDouble(driver.findElement(By.id("priceblock_
                      if (e == Event.KEY_NAME) {switch (parser.getString()) {
 
              case e_cName: parser.next(); country_name = parser.getString();break;   // France
-              case e_cCode:parser.next(); currency_code = parser.getString();break;      // EUR
+             case e_cCode:parser.next(); currency_code = parser.getString();break;      // EUR
              case e_cSymbol:parser.next(); currency_symbol = parser.getString();break;}}} // €
 
              ////////////////////////////////////////////////////////////////////////////////
@@ -90,11 +93,9 @@ URL rate_url = new URL("http://query.yahooapis.com/v1/public/yql?q=" + rate_sql 
 
              ////////////////////////////////////////////////////////////////////////////////
 
-       double eur_price = new BigDecimal(original_price * rate).setScale(2, RoundingMode.HALF_UP).doubleValue();
-       System.out.println("Item: " + product_title + "; "
-                                   + "US Price: " + us_currency_symbol + original_price + "; "
-                                   + "for country: " + country_name + "; "
-                                   + "Local Price: " + currency_symbol + eur_price);
+       double local_price = new BigDecimal(original_price * rate).setScale(2, RoundingMode.HALF_UP).doubleValue();
+       System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
+       System.out.println("for country: " + country_name + "; " + "Local Price: " + currency_symbol + local_price);
     }
 }
 
