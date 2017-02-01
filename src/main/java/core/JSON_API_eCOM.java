@@ -126,17 +126,18 @@ public class JSON_API_eCOM {
 	public static void main(String[] args) throws InterruptedException, IOException {
               String us_currency_symbol = "$";
 
-              String ip_Euro 	= "88.191.179.56"; // 1
-              String ip_Yuan 	= "61.135.248.220";// 2
-              String ip_Pound 	= "92.40.254.196"; // 3
-              String ip_Hryvnia = "93.183.203.67"; // 4
-              String ip_Ruble 	= "213.87.141.36"; // 5
-              String ip_Australian_dollar  	= "27.111.255.255"; // 6
-              String ip_Norwegian_krone 	= "46.249.255.255"; // 7
-              String ip_Tögrög 	= "182.160.63.255"; // 8
-              String ip_Peso 	= "158.170.255.255"; //9 
-              String ip_Guinean_franc 	= "197.149.255.255"; //10 
+              String Euro 	= "88.191.179.56"; // 1
+              String Yuan 	= "61.135.248.220";// 2
+              String Pound 	= "92.40.254.196"; // 3
+              String Hryvnia = "93.183.203.67"; // 4
+              String Ruble 	= "213.87.141.36"; // 5
+              String Australian_dollar  	= "27.111.255.255"; // 6
+              String Norwegian_krone 	= "46.249.255.255"; // 7
+              String Tögrög 	= "182.160.63.255"; // 8
+              String Peso 	= "158.170.255.255"; //9 
+              String Guinean_franc 	= "197.149.255.255"; //10 
               String ip_local 	= " ";
+              String currency_local=" ";
 
              ////////////////////////////////////////////////////////////////////////////////
 
@@ -159,16 +160,16 @@ public class JSON_API_eCOM {
 ////////////////////////////////////////////////////////////////////////////////
 for(int i_ip=1; i_ip<=10 ; i_ip++){
 switch (i_ip){
-case 1: ip_local=ip_Euro; break;
-case 2: ip_local=ip_Yuan; break;
-case 3: ip_local=ip_Pound; break;
-case 4: ip_local=ip_Hryvnia; break;
-case 5: ip_local=ip_Ruble; break;
-case 6: ip_local=ip_Australian_dollar; break;
-case 7: ip_local=ip_Norwegian_krone; break;
-case 8: ip_local=ip_Tögrög; break;
-case 9: ip_local=ip_Peso; break;
-case 10: ip_local=ip_Guinean_franc; break;
+case 1: ip_local=Euro; currency_local="Euro"; break;
+case 2: ip_local=Yuan; currency_local="Yuan"; break;
+case 3: ip_local=Pound; currency_local="Pound"; break;
+case 4: ip_local=Hryvnia; currency_local="Hryvnia"; break;
+case 5: ip_local=Ruble; currency_local="Ruble"; break;
+case 6: ip_local=Australian_dollar; currency_local="Australian_dollar"; break;
+case 7: ip_local=Norwegian_krone; currency_local="Norwegian_krone"; break;
+case 8: ip_local=Tögrög; currency_local="Tögrög"; break;
+case 9: ip_local=Peso; currency_local="Peso"; break;
+case 10: ip_local=Guinean_franc; currency_local="Guinean_franc"; break;
 }
 URL api_url = new URL("http://www.geoplugin.net/json.gp?ip=" + ip_local);
 
@@ -213,7 +214,7 @@ URL rate_url = new URL("http://query.yahooapis.com/v1/public/yql?q=" + rate_sql 
 
        double local_price = new BigDecimal(original_price * rate).setScale(2, RoundingMode.HALF_UP).doubleValue();
        //System.out.println("Item: " + product_title + "; " + "US Price: " + us_currency_symbol + original_price + "; ");
-       System.out.println(i_ip+". Price for " + country_name +  " is: " + currency_symbol + local_price);
+       System.out.println(i_ip+". Price for " + country_name +  " is: in " +currency_local +" " + currency_symbol + local_price);
        
 } //for i_ip
 } // main
