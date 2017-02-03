@@ -90,7 +90,7 @@
 							<threadCount>4</threadCount>
 					<archive>
 						<manifest>
-							<mainClass>core.JSON_API_eCOM_PF_External_CLA</mainClass>
+							<mainClass>core.JSON_API_eCOM_PF_External_CLO</mainClass>
 						</manifest>
 					</archive>
 					

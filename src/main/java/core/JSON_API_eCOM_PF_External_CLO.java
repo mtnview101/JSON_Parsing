@@ -28,8 +28,12 @@
 	public class JSON_API_eCOM_PF_External_CLO {
 		static WebDriver driver;
 	       Properties p = new Properties();
-	       String getPropertyOut(String prop_file, String property) throws IOException { // method takes data from property file (internal)
-	           // p.load(ClassLoader.getSystemResourceAsStream(prop_file));
+	       //static JSON_API_eCOM_PF_External_CLO pf = new JSON_API_eCOM_PF_External_CLO();
+	       
+	       @Parameter(names = {"-f", "--p_file"}, description = "Properties File", required = true)
+	       static String pf_out = null;	       
+	       
+	       String getPropertyCLO(String prop_file, String property) throws IOException { // method takes data from property file (internal)
 	              p.load(new FileInputStream(prop_file));
 	              return p.getProperty(property);} //return "property" value
 		
@@ -135,23 +139,22 @@
 			    }
 
 		public static void main(String[] args) throws InterruptedException, IOException {
-	          if (args.length == 0) {System.err.println("Please enter a path as an argument");System.exit(1);}
-	          if (!args[0].contains(".properties")) {System.err.println("Argument must be an properties file");System.exit(1);} //extension properties file handling
-	          String pf_out = args[0]; // String pf_out = "./src/main/resources/in.properties";
-			  JSON_API_eCOM_PF_External_CLA p = new JSON_API_eCOM_PF_External_CLA();
+            new JCommander(new JSON_API_eCOM_PF_External_CLO(), args);
+			
+ 	        JSON_API_eCOM_PF_External_CLO pf = new JSON_API_eCOM_PF_External_CLO();
 	              
 			  	  String us_currency_symbol = "$";
 			  	  
-			  	  String Euro 	= p.getPropertyOut(pf_out, "Euro"); // 1
-	              String Yuan 	= p.getPropertyOut(pf_out, "Yuan");// 2
-	              String Pound 	= p.getPropertyOut(pf_out, "Pound"); // 3
-	              String Hryvnia = p.getPropertyOut(pf_out, "Hryvnia"); // 4
-	              String Ruble 	= p.getPropertyOut(pf_out, "Ruble"); // 5
-	              String Australian_dollar  = p.getPropertyOut(pf_out, "Australian_dollar"); // 6
-	              String Norwegian_krone 	= p.getPropertyOut(pf_out, "Norwegian_krone"); // 7
-	              String Tögrög 			= p.getPropertyOut(pf_out, "Tögrög"); // 8
-	              String Peso 				= p.getPropertyOut(pf_out, "Peso"); //9 
-	              String Guinean_franc 		= p.getPropertyOut(pf_out, "Guinean_franc"); //10 			  	
+			  	  String Euro 	= pf.getPropertyCLO(pf_out, "Euro"); // 1
+	              String Yuan 	= pf.getPropertyCLO(pf_out, "Yuan");// 2
+	              String Pound 	= pf.getPropertyCLO(pf_out, "Pound"); // 3
+	              String Hryvnia = pf.getPropertyCLO(pf_out, "Hryvnia"); // 4
+	              String Ruble 	= pf.getPropertyCLO(pf_out, "Ruble"); // 5
+	              String Australian_dollar  = pf.getPropertyCLO(pf_out, "Australian_dollar"); // 6
+	              String Norwegian_krone 	= pf.getPropertyCLO(pf_out, "Norwegian_krone"); // 7
+	              String Tögrög 			= pf.getPropertyCLO(pf_out, "Tögrög"); // 8
+	              String Peso 				= pf.getPropertyCLO(pf_out, "Peso"); //9 
+	              String Guinean_franc 		= pf.getPropertyCLO(pf_out, "Guinean_franc"); //10 			  	
 			  	
 
 /*	              
