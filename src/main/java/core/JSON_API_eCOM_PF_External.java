@@ -19,12 +19,14 @@
 	import org.openqa.selenium.safari.SafariDriver;
 	import org.openqa.selenium.safari.SafariOptions;
 	import java.util.Properties;
+	import java.io.FileInputStream;
 
-	public class JSON_API_eCOM_PF_Internal {
+	public class JSON_API_eCOM_PF_External {
 		static WebDriver driver;
 	       Properties p = new Properties();
-	       String getPropertyIn(String prop_file, String property) throws IOException { // method takes data from property file (internal)
-	              p.load(ClassLoader.getSystemResourceAsStream(prop_file));
+	       String getPropertyOut(String prop_file, String property) throws IOException { // method takes data from property file (internal)
+	           // p.load(ClassLoader.getSystemResourceAsStream(prop_file));
+	              p.load(new FileInputStream(prop_file));
 	              return p.getProperty(property);} //return "property" value
 		
 		public static void setWebDriver(String browser) throws IOException {
@@ -129,22 +131,23 @@
 			    }
 
 		public static void main(String[] args) throws InterruptedException, IOException {
-			  String pf_in = "in.properties";
-			  if (!pf_in.contains(".properties")) {System.err.println("Must be an properties file");System.exit(1); } //extension properties file handling
-			  JSON_API_eCOM_PF_Internal p = new JSON_API_eCOM_PF_Internal();
+	          if (args.length == 0) {System.err.println("Please enter a path as an argument");System.exit(1);}
+	          if (!args[0].contains(".properties")) {System.err.println("Argument must be an properties file");System.exit(1);} //extension properties file handling
+	          String pf_out = args[0]; // String pf_out = "./src/main/resources/in.properties";
+			  JSON_API_eCOM_PF_External p = new JSON_API_eCOM_PF_External();
 	              
 			  	  String us_currency_symbol = "$";
 			  	  
-			  	  String Euro 	= p.getPropertyIn(pf_in, "Euro"); // 1
-	              String Yuan 	= p.getPropertyIn(pf_in, "Yuan");// 2
-	              String Pound 	= p.getPropertyIn(pf_in, "Pound"); // 3
-	              String Hryvnia = p.getPropertyIn(pf_in, "Hryvnia"); // 4
-	              String Ruble 	= p.getPropertyIn(pf_in, "Ruble"); // 5
-	              String Australian_dollar  = p.getPropertyIn(pf_in, "Australian_dollar"); // 6
-	              String Norwegian_krone 	= p.getPropertyIn(pf_in, "Norwegian_krone"); // 7
-	              String Tögrög 			= p.getPropertyIn(pf_in, "Tögrög"); // 8
-	              String Peso 				= p.getPropertyIn(pf_in, "Peso"); //9 
-	              String Guinean_franc 		= p.getPropertyIn(pf_in, "Guinean_franc"); //10 			  	
+			  	  String Euro 	= p.getPropertyOut(pf_out, "Euro"); // 1
+	              String Yuan 	= p.getPropertyOut(pf_out, "Yuan");// 2
+	              String Pound 	= p.getPropertyOut(pf_out, "Pound"); // 3
+	              String Hryvnia = p.getPropertyOut(pf_out, "Hryvnia"); // 4
+	              String Ruble 	= p.getPropertyOut(pf_out, "Ruble"); // 5
+	              String Australian_dollar  = p.getPropertyOut(pf_out, "Australian_dollar"); // 6
+	              String Norwegian_krone 	= p.getPropertyOut(pf_out, "Norwegian_krone"); // 7
+	              String Tögrög 			= p.getPropertyOut(pf_out, "Tögrög"); // 8
+	              String Peso 				= p.getPropertyOut(pf_out, "Peso"); //9 
+	              String Guinean_franc 		= p.getPropertyOut(pf_out, "Guinean_franc"); //10 			  	
 			  	
 
 /*	              
