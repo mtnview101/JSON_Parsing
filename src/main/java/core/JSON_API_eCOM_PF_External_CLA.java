@@ -21,7 +21,7 @@
 	import java.util.Properties;
 	import java.io.FileInputStream;
 
-	public class JSON_API_eCOM_PF_External {
+	public class JSON_API_eCOM_PF_External_CLA {
 		static WebDriver driver;
 	       Properties p = new Properties();
 	       String getPropertyOut(String prop_file, String property) throws IOException { // method takes data from property file (internal)
@@ -134,7 +134,7 @@
 	          if (args.length == 0) {System.err.println("Please enter a path as an argument");System.exit(1);}
 	          if (!args[0].contains(".properties")) {System.err.println("Argument must be an properties file");System.exit(1);} //extension properties file handling
 	          String pf_out = args[0]; // String pf_out = "./src/main/resources/in.properties";
-			  JSON_API_eCOM_PF_External p = new JSON_API_eCOM_PF_External();
+			  JSON_API_eCOM_PF_External_CLA p = new JSON_API_eCOM_PF_External_CLA();
 	              
 			  	  String us_currency_symbol = "$";
 			  	  
